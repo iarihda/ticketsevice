@@ -1,4 +1,6 @@
-package com.iarihda.maven.ticketsevice.Model;
+package model;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Setup entity for a screen
@@ -11,15 +13,16 @@ public class Screen {
 	private int size;
 	private boolean isActive;
 	
+	private static AtomicInteger idGenerator = new AtomicInteger(1000);
+	
 	/**
 	 * Constructor
-	 * @param screenId - screen number or id 
 	 * @param noOfSeats - capacity (total number of seats) of the screen
 	 * @param screenSize - diagonal measure of the screen in inches (to differentiate between IMAX and normal screens)
 	 * @param status - boolean value to denote whether the screen is used or not
 	 */
-	Screen(int screenId,int noOfSeats,int screenSize,boolean status){
-		id = screenId;
+	public Screen(int noOfSeats,int screenSize,boolean status){
+		id = idGenerator.getAndIncrement();
 		capacity = noOfSeats;
 		size = screenSize;
 		isActive = status;
@@ -28,14 +31,14 @@ public class Screen {
 	/**
 	 * @return the screen id
 	 */
-	int getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @return the screen capacity
 	 */
-	int getCapacity() {
+	public int getCapacity() {
 		return capacity;
 	}
 	
@@ -51,14 +54,6 @@ public class Screen {
 	 */
 	boolean isActive() {
 		return isActive;
-	}
-	
-	/**
-	 * Used to change the id after the screen object is created.
-	 * @param screenId
-	 */
-	void setId(int screenId) {
-		id = screenId;
 	}
 	
 	/**

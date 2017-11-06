@@ -1,4 +1,4 @@
-package com.iarihda.maven.ticketsevice.Model;
+package model;
 
 /**
  * Transaction entity to maintain and manage the seat availability of a show
@@ -9,6 +9,7 @@ public class Seats {
 	private int showId;
 	private int availableSeats;
 	private boolean[][] seatArray;
+	private int[] rowCount;
 	
 	/**
 	 * Constructor
@@ -17,22 +18,29 @@ public class Seats {
 	 * @param rows - no. of rows
 	 * @param columns - no. of columns
 	 */
-	Seats(int show, int capacity, int rows, int columns){
+	public Seats(int show, int capacity, int rows, int columns){
 		showId = show;
 		availableSeats = capacity;
 		seatArray = new boolean[rows][columns];
+		rowCount = new int[rows];
+		for(int i=0;i<rows;i++)
+			rowCount[i] = columns;
 	}
 	
 	int getShowId() {
 		return showId;
 	}
 	
-	int getAvailabileSeats() {
+	public int getAvailabileSeats() {
 		return availableSeats;
 	}
 	
-	boolean[][] getSeats(){
+	public boolean[][] getSeats(){
 		return seatArray;
+	}
+	
+	public int[] getRowCount(){
+		return rowCount;
 	}
 	
 	void setId(int show) {
@@ -43,7 +51,17 @@ public class Seats {
 		availableSeats = count;
 	}
 	
-	void setSeatArray(boolean[][] newSeatArr) {
+	public void updateSeatAvailability(boolean[][] newSeatArr, int[] newRowCount) {
 		seatArray = newSeatArr;
+		rowCount = newRowCount;
+//		printSeats();
+	}
+	
+	private void printSeats(){
+		for(int i=0;i<seatArray.length;i++){
+			for(int j=0;j<seatArray[i].length;j++)
+				System.out.print(seatArray[i][j]+" ");
+			System.out.println();
+		}
 	}
 }

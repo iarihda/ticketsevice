@@ -1,4 +1,6 @@
-package com.iarihda.maven.ticketsevice.Model;
+package model;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Setup entity for a show
@@ -12,16 +14,17 @@ public class Show {
 	private String time;
 	private boolean isActive;
 	
+	private static AtomicInteger idGenerator = new AtomicInteger(1000);
+	
 	/**
 	 * Constructor
-	 * @param showId - unique id of the show
 	 * @param mId - id of the movie which is showing
 	 * @param sId - id of the screen in which the movie is showing
 	 * @param showTime - time of the show
 	 * @param status - boolean value to indicate if the show is currently active or not
 	 */
-	Show(int showId, int mId, int sId, String showTime, boolean status){
-		id = showId;
+	public Show(int mId, int sId, String showTime, boolean status){
+		id = idGenerator.getAndIncrement();
 		movieId = mId;
 		screenId = sId;
 		time = showTime;
@@ -31,7 +34,7 @@ public class Show {
 	/**
 	 * @return show id
 	 */
-	int getId() {
+	public int getId() {
 		return id;
 	}
 	
@@ -49,10 +52,6 @@ public class Show {
 	
 	boolean isActive() {
 		return isActive;
-	}
-	
-	void setId(int showId) {
-		id = showId;
 	}
 	
 	void setMovieId(int mID) {

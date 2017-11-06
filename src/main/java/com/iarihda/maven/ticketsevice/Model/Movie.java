@@ -1,4 +1,6 @@
-package com.iarihda.maven.ticketsevice.Model;
+package model;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Setup entity for a movie
@@ -11,6 +13,8 @@ public class Movie {
 	private String language;
 	private boolean isActive;
 	
+	private static AtomicInteger idGenerator = new AtomicInteger(1000);
+	
 	/**
 	 * Constructor
 	 * @param movieId - unique identifier of the movie
@@ -18,8 +22,8 @@ public class Movie {
 	 * @param movieLanguage - language of the movie 
 	 * @param status - boolean value which indicates whether the movie is currently showing or not
 	 */
-	Movie(int movieId, String movieName, String movieLanguage, boolean status){
-		id = movieId;
+	public Movie(String movieName, String movieLanguage, boolean status){
+		id = idGenerator.getAndIncrement();
 		title = movieName;
 		language = movieLanguage;
 		isActive = status;
@@ -28,7 +32,7 @@ public class Movie {
 	/**
 	 * @return movie id
 	 */
-	int getId() {
+	public int getId() {
 		return id;
 	}
 	
@@ -51,14 +55,6 @@ public class Movie {
 	 */
 	boolean isActive() {
 		return isActive;
-	}
-	
-	/**
-	 * Used to change movie Id after the object is created.
-	 * @param movieId
-	 */
-	void setId(int movieId) {
-		id = movieId;
 	}
 	
 	/**
