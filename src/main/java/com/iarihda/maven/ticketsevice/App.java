@@ -1,11 +1,13 @@
-import model.SeatHold;
-import service.BookingService;
+package com.iarihda.maven.ticketsevice;
 
+import com.iarihda.maven.ticketsevice.model.SeatHold;
+import com.iarihda.maven.ticketsevice.service.BookingService;
 
 public class App {
 
 	public static void main(String[] args) {
-		BookingService bs = new BookingService();
+		TheatreSetup venue = new TheatreSetup();
+		BookingService bs = new BookingService(venue);
 		SeatHold s1 = bs.findAndHoldSeats(4, "email");
 		for(String s : s1.getHeldSeats())
 			System.out.print(s+" ");
