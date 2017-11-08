@@ -24,11 +24,17 @@ public class Screen {
 	 * @param status - boolean value to denote whether the screen is used or not
 	 */
 	public Screen(String screenName, int noOfSeats,int screenSize,boolean status){
+		validateParams(noOfSeats, screenSize);
 		id = idGenerator.getAndIncrement();
 		name = screenName;
 		capacity = noOfSeats;
 		size = screenSize;
 		isActive = status;
+	}
+	
+	private void validateParams(int noOfSeats, int screenSize) {
+		if(noOfSeats<=0 || screenSize<=0 )
+			throw new IllegalArgumentException("No. of seats and screen size should be a positive value");
 	}
 	
 	/**
@@ -48,14 +54,14 @@ public class Screen {
 	/**
 	 * @return the screen size
 	 */
-	int getSize() {
+	public int getSize() {
 		return size;
 	}
 	
 	/**
 	 * @return status (active or not)
 	 */
-	boolean isActive() {
+	public boolean isActive() {
 		return isActive;
 	}
 	
@@ -63,7 +69,8 @@ public class Screen {
 	 * Used to change the no. of seats after the screen object is created.
 	 * @param noOfSeats
 	 */
-	void setCapacity(int noOfSeats) {
+	public void setCapacity(int noOfSeats) {
+		validateParams(noOfSeats, size);
 		capacity = noOfSeats;
 	}
 	
@@ -71,14 +78,15 @@ public class Screen {
 	 * Used to change the size of the screen after the screen object is created.
 	 * @param screenSize
 	 */
-	void setSize(int screenSize) {
+	public void setSize(int screenSize) {
+		validateParams(screenSize, capacity);
 		size = screenSize;
 	}
 	
 	/**
 	 * Change the status of the screen from active to inactive and vice versa
 	 */
-	void changeStatus() {
+	public void changeStatus() {
 		isActive = !isActive;
 	}
 
