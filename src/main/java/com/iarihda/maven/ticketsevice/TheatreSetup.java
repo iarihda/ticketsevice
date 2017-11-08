@@ -8,6 +8,7 @@ public class TheatreSetup {
 	
 	final int rows = 5;
 	final int columns = 5;
+  	final int ticket_hold_time = 30000;
 	
 	private Screen scrn_1;
 	private Movie mv_1;
@@ -25,6 +26,10 @@ public class TheatreSetup {
 	
 	public int getColumnCount() {
 		return columns;
+	}
+	
+	public int getHoldLimit(){
+		return ticket_hold_time;
 	}
 	
 	public Screen getScreen() {
