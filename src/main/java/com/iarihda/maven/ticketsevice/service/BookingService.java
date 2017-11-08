@@ -81,7 +81,7 @@ public class BookingService implements TicketService {
 	* @return a SeatHold object identifying the specific seats and related information
 	*/
 	public synchronized SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
-		if(numSeats>numSeatsAvailable())
+		if(!validate(customerEmail) || numSeats>numSeatsAvailable() || numSeats == 0)
 			return null;
 		String[] seatsToBeHeld = findBestSeats(numSeats);
 		seats.updateSeatAvailability(seatArray,rowAvailability);
@@ -167,12 +167,17 @@ public class BookingService implements TicketService {
 	* @return a reservation confirmation code
 	*/
 	public synchronized String reserveSeats(int seatHoldId, String customerEmail) {
+		if(!validate(customerEmail)) return null;
 		SeatHold seatsToBeBooked = seatHoldMap.get(seatHoldId);
-		if(!seatsToBeBooked.isActive())
+		if(seatsToBeBooked == null || !seatsToBeBooked.isActive())
 			return null;
 		seatHoldMap.remove(seatHoldId);
 		Bookings newBooking = new Bookings(seatsToBeBooked, customerEmail, seats.getShowId());
 		return newBooking.getConfirmationCode();
+	}
+
+	private boolean validate(String customerEmail) {
+		return customerEmail==null? false : customerEmail.trim().matches("^(.+)@(.+)$");
 	}
 
 }
