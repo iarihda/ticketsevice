@@ -10,7 +10,7 @@ import com.iarihda.maven.ticketsevice.service.BookingService;
 
 class TicketThread extends Thread{
 	
-	private static Logger log = LogManager.getLogger(App.class);
+	private static Logger log = LogManager.getLogger(Theatre.class);
 	
 	private BookingService bookingService;
 	private long waitTime;
@@ -30,6 +30,7 @@ class TicketThread extends Thread{
 			if(sh==null){
 				throw new InterruptedException("Requested number of seats ("+numSeats+") not available for "+customerEmail+". Please try with lesser quantity.");
 			}
+			log.info("Seats "+Arrays.toString(sh.getHeldSeats())+" are held for "+customerEmail);
 			Thread.sleep(waitTime);
 			String confirmation = bookingService.reserveSeats(sh.getId(), customerEmail);
 			if(confirmation == null){
@@ -47,7 +48,7 @@ class TicketThread extends Thread{
 	
 }
 
-public class App {
+public class Theatre {
 
 	public static void main(String[] args) {
 		TheatreSetup venue = new TheatreSetup();

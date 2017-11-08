@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Screen {
 	
 	private int id;
+	private String name;
 	private int capacity;
 	private int size;
 	private boolean isActive;
@@ -17,12 +18,14 @@ public class Screen {
 	
 	/**
 	 * Constructor
+	 * @param name 
 	 * @param noOfSeats - capacity (total number of seats) of the screen
 	 * @param screenSize - diagonal measure of the screen in inches (to differentiate between IMAX and normal screens)
 	 * @param status - boolean value to denote whether the screen is used or not
 	 */
-	public Screen(int noOfSeats,int screenSize,boolean status){
+	public Screen(String screenName, int noOfSeats,int screenSize,boolean status){
 		id = idGenerator.getAndIncrement();
+		name = screenName;
 		capacity = noOfSeats;
 		size = screenSize;
 		isActive = status;

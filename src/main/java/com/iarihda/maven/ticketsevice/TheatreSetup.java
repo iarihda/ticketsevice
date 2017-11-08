@@ -14,7 +14,7 @@ public class TheatreSetup {
 	private Show shw_1;
 	
 	public TheatreSetup() {
-		scrn_1 = new Screen(rows*columns,50,true);
+		scrn_1 = new Screen("Screen1",rows*columns,50,true);
 		mv_1 = new Movie("Avenger", "English", true);
 		shw_1 = new Show(mv_1.getId(),scrn_1.getId(),"6PM",true);
 	}
