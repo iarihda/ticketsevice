@@ -34,11 +34,11 @@ public class SeatHold {
 		return id;
 	}
 	
-	int getSeatCount() {
+	public int getSeatCount() {
 		return noOfSeats;
 	}
 	
-	String getCustomer() {
+	public String getCustomer() {
 		return customerEmail;
 	}
 	
@@ -46,8 +46,8 @@ public class SeatHold {
 		return heldSeats;
 	}
 	
-	boolean isActive() {
-		return System.currentTimeMillis()<holdStartTime+120000;
+	public boolean isActive() {
+		return System.currentTimeMillis()<holdStartTime+30000;
 	}
 	
 }

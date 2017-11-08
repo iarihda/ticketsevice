@@ -1,4 +1,4 @@
-package model;
+package com.iarihda.maven.ticketsevice.model;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

@@ -1,7 +1,7 @@
-package setup;
+package com.iarihda.maven.ticketsevice;
 
-import model.SeatHold;
-import service.BookingService;
+import com.iarihda.maven.ticketsevice.model.SeatHold;
+import com.iarihda.maven.ticketsevice.service.BookingService;
 
 class TicketThread extends Thread{
 	

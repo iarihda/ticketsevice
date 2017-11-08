@@ -27,7 +27,7 @@ public class Seats {
 			rowCount[i] = columns;
 	}
 	
-	int getShowId() {
+	public int getShowId() {
 		return showId;
 	}
 	
@@ -46,9 +46,13 @@ public class Seats {
 	void setId(int show) {
 		showId = show;
 	}
+
+	public void incrementSeats(int numSeats) {
+		availableSeats += numSeats;		
+	}
 	
-	void setAvailableSeats(int count) {
-		availableSeats = count;
+	public void decrementSeats(int numSeats) {
+		availableSeats -= numSeats;		
 	}
 	
 	public void updateSeatAvailability(boolean[][] newSeatArr, int[] newRowCount) {
