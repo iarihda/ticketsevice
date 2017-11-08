@@ -1,9 +1,16 @@
 package com.iarihda.maven.ticketsevice;
 
+import java.util.Arrays;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.iarihda.maven.ticketsevice.model.SeatHold;
 import com.iarihda.maven.ticketsevice.service.BookingService;
 
 class TicketThread extends Thread{
+	
+	private static Logger log = LogManager.getLogger(App.class);
 	
 	private BookingService bookingService;
 	private long waitTime;
@@ -19,7 +26,6 @@ class TicketThread extends Thread{
 	
 	public void run(){
 		try {
-			System.out.println("Starting booking for "+customerEmail);
 			SeatHold sh = bookingService.findAndHoldSeats(numSeats, customerEmail);
 			if(sh==null){
 				throw new InterruptedException("Requested number of seats ("+numSeats+") not available for "+customerEmail+". Please try with lesser quantity.");
@@ -27,15 +33,13 @@ class TicketThread extends Thread{
 			Thread.sleep(waitTime);
 			String confirmation = bookingService.reserveSeats(sh.getId(), customerEmail);
 			if(confirmation == null){
-				System.out.println("Hold expired due to time out for "+customerEmail+". Please try again.");
+				log.info("Hold expired due to time out for "+customerEmail+". Please try again.");
 			} else {
-				System.out.println("Tickets booked for "+customerEmail+". Confirmation Code - "+confirmation);
-				for(String s : sh.getHeldSeats())
-					System.out.print(s+" ");
-				System.out.println();
+				log.info("Tickets booked for "+customerEmail+". Confirmation Code - "+confirmation);
+				log.info("Seat Numbers for "+confirmation+" : "+Arrays.toString(sh.getHeldSeats()));
 			}
 		} catch (InterruptedException e) {
-			System.out.println(e.getMessage());
+			log.info(e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
