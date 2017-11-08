@@ -43,14 +43,20 @@ class TicketThread extends Thread{
 	public void run(){
 		try {
 			SeatHold sh = bookingService.findAndHoldSeats(numSeats, customerEmail);
-			if(sh==null){ 
-				throw new InterruptedException("Requested number of seats ("+numSeats+") not available for "+customerEmail+". Please try with lesser quantity.");
+			if(sh==null){
+				if(numSeats==0)
+					throw new InterruptedException("Please check the no. of seats. Cannot hold 0 seats.");
+				else
+					throw new InterruptedException("Requested number of seats ("+numSeats+") not available for "+customerEmail+". Please try with lesser quantity.");
 			}
 			log.info("Seats "+Arrays.toString(sh.getHeldSeats())+" are held for "+customerEmail);
 			Thread.sleep(waitTime); //The customer takes waitTime milliseconds before completing the purchase
 			String confirmation = bookingService.reserveSeats(sh.getId(), customerEmail);
 			if(confirmation == null){
-				log.info("Hold expired due to time out for "+customerEmail+". Please try again.");
+				if(customerEmail==null)
+					log.info("Cannot book tickets without a valid customer email.");
+				else
+					log.info("Hold expired due to time out for "+customerEmail+". Please try again.");
 			} else {
 				log.info("Tickets booked for "+customerEmail+". Confirmation Code - "+confirmation);
 				log.info("Seat Numbers for "+confirmation+" : "+Arrays.toString(sh.getHeldSeats()));
