@@ -24,15 +24,17 @@ public class Screen {
 	 * @param status - boolean value to denote whether the screen is used or not
 	 */
 	public Screen(String screenName, int noOfSeats,int screenSize,boolean status){
-		validateParams(noOfSeats, screenSize);
+		validateParams(screenName, noOfSeats, screenSize);
 		id = idGenerator.getAndIncrement();
 		name = screenName;
-		capacity = noOfSeats;
+		capacity = Math.min(625, noOfSeats);
 		size = screenSize;
 		isActive = status;
 	}
 	
-	private void validateParams(int noOfSeats, int screenSize) {
+	private void validateParams(String screenName, int noOfSeats, int screenSize) {
+		if(screenName==null) 
+			throw new IllegalArgumentException("Screen name cannot be null");
 		if(noOfSeats<=0 || screenSize<=0 )
 			throw new IllegalArgumentException("No. of seats and screen size should be a positive value");
 	}
@@ -59,6 +61,13 @@ public class Screen {
 	}
 	
 	/**
+	 * @return screen name
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
 	 * @return status (active or not)
 	 */
 	public boolean isActive() {
@@ -70,8 +79,17 @@ public class Screen {
 	 * @param noOfSeats
 	 */
 	public void setCapacity(int noOfSeats) {
-		validateParams(noOfSeats, size);
+		validateParams(name, noOfSeats, size);
 		capacity = noOfSeats;
+	}
+	
+	/**
+	 * Used to change the screen name after the screen object is created.
+	 * @param newName
+	 */
+	public void changeName(String newName) {
+		validateParams(newName, capacity, size);
+		name = newName;
 	}
 	
 	/**
@@ -79,7 +97,7 @@ public class Screen {
 	 * @param screenSize
 	 */
 	public void setSize(int screenSize) {
-		validateParams(screenSize, capacity);
+		validateParams(name, screenSize, capacity);
 		size = screenSize;
 	}
 	

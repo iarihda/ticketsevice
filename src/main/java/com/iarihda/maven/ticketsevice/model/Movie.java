@@ -23,12 +23,18 @@ public class Movie {
 	 * @param status - boolean value which indicates whether the movie is currently showing or not
 	 */
 	public Movie(String movieName, String movieLanguage, boolean status){
+		validateParams(movieName,movieLanguage);
 		id = idGenerator.getAndIncrement();
 		title = movieName;
 		language = movieLanguage;
 		isActive = status;
 	}
 	
+	private void validateParams(String movieName, String movieLanguage) {
+		if(movieName==null || movieLanguage==null)
+			throw new IllegalArgumentException("Movie name or language cannot be null");
+	}
+
 	/**
 	 * @return movie id
 	 */
@@ -62,6 +68,7 @@ public class Movie {
 	 * @param name
 	 */
 	void setTitle(String name) {
+		validateParams(name, language);
 		title = name;
 	}
 	
@@ -70,6 +77,7 @@ public class Movie {
 	 * @param movieLanguage
 	 */
 	void setLanguage(String movieLanguage) {
+		validateParams(title, movieLanguage);
 		language = movieLanguage;
 	}
 	

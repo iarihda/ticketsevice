@@ -24,6 +24,7 @@ public class Show {
 	 * @param status - boolean value to indicate if the show is currently active or not
 	 */
 	public Show(int mId, int sId, String showTime, boolean status){
+		validateParams(mId,sId,showTime);
 		id = idGenerator.getAndIncrement();
 		movieId = mId;
 		screenId = sId;
@@ -31,6 +32,15 @@ public class Show {
 		isActive = status;
 	}
 	
+	private void validateParams(int mId, int sId, String showTime) {
+		if(mId<1000)
+			throw new IllegalArgumentException("Invalid movie id");
+		if(sId<1000)
+			throw new IllegalArgumentException("Invalid screen id");
+		if(showTime==null)
+			throw new IllegalArgumentException("Show time cannot be null");
+	}
+
 	/**
 	 * @return show id
 	 */
@@ -55,14 +65,17 @@ public class Show {
 	}
 	
 	void setMovieId(int mID) {
+		validateParams(mID, screenId, time);
 		movieId = mID;
 	}
 	
 	void setScreenId(int sID) {
+		validateParams(movieId, sID, time);
 		screenId = sID;
 	}
 	
 	void setTime(String showTime) {
+		validateParams(movieId, screenId, showTime);
 		time = showTime;
 	}
 	
