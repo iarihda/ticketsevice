@@ -48,7 +48,7 @@ public class BookingService implements TicketService {
 	/**
 	 * Removes the SeatHold objects which has expired and updates the count of seats available
 	 */
-	private void removeExpiredHolds() {
+	private synchronized void removeExpiredHolds() {
 		Iterator<Entry<Integer, SeatHold>> it = seatHoldMap.entrySet().iterator();
 		while(it.hasNext()){
 			Entry<Integer, SeatHold> hold = it.next();
@@ -65,7 +65,7 @@ public class BookingService implements TicketService {
 	 * Update the no. of free seats on that particular row
 	 * @param heldSeats
 	 */
-	private void removeHoldOnSeats(String[] heldSeats) {
+	private synchronized void removeHoldOnSeats(String[] heldSeats) {
 		for(String heldSeat : heldSeats){
 			int r = (int)heldSeat.charAt(0)-65;
 			int c = Character.getNumericValue(heldSeat.charAt(1)) - 1;
@@ -84,6 +84,7 @@ public class BookingService implements TicketService {
 		if(!validate(customerEmail) || numSeats>numSeatsAvailable() || numSeats == 0)
 			return null;
 		String[] seatsToBeHeld = findBestSeats(numSeats);
+		if(seatsToBeHeld==null) return null;
 		seats.updateSeatAvailability(seatArray,rowAvailability);
 		SeatHold seatHold = new SeatHold(numSeats, customerEmail, seatsToBeHeld);
 		seatHoldMap.put(seatHold.getId(), seatHold);
@@ -97,7 +98,7 @@ public class BookingService implements TicketService {
 	 * @param numSeats
 	 * @return array of seat numbers
 	 */
-	private String[] findBestSeats(int numSeats) {
+	private synchronized String[] findBestSeats(int numSeats) {
 		String[] seatNumbers = null;
 		for(int i=rows-1;i>=0;i--){
 			if(rowAvailability[i]>=numSeats) {
@@ -116,7 +117,7 @@ public class BookingService implements TicketService {
 	 * @param numSeats
 	 * @return
 	 */
-	private String[] splitAndReserveSeats(int numSeats) {
+	private synchronized String[] splitAndReserveSeats(int numSeats) {
 		String[] seatNumbers = new String[numSeats];
 		int itr = 0;
 		for(int i=rows-1;i>=0&&numSeats>0;i--){
@@ -129,6 +130,7 @@ public class BookingService implements TicketService {
 				}
 			}
 		}
+		if(itr!=seatNumbers.length) return null;
 		return seatNumbers;
 	}
 
@@ -138,7 +140,7 @@ public class BookingService implements TicketService {
 	 * @param numSeats - no. of seats to be held
 	 * @return array of seat numbers
 	 */
-	private String[] holdSeatsInRow(int r, int numSeats) {
+	private synchronized String[] holdSeatsInRow(int r, int numSeats) {
 		String[] seatNumbers = new String[numSeats];
 		int startIndex = -1;
 		int count = 0;
@@ -152,6 +154,7 @@ public class BookingService implements TicketService {
 				startIndex = -1;				
 			}
 		}
+		if(startIndex==-1) return null;
 		for(int i=startIndex;i<startIndex+numSeats;i++){
 			seatArray[r][i] = true;
 			seatNumbers[i-startIndex] = (char)(r+65)+String.valueOf(i+1); 
