@@ -6,9 +6,9 @@ import com.iarihda.maven.ticketsevice.model.Show;
 
 public class TheatreSetup {
 	
-	final int rows = 5;
-	final int columns = 5;
-  	final int ticket_hold_time = 30000;
+	final static int rows = 5;
+	final static int columns = 5;
+	final static int ticket_hold_time = 30000;
 	
 	private Screen scrn_1;
 	private Movie mv_1;
@@ -20,15 +20,15 @@ public class TheatreSetup {
 		shw_1 = new Show(mv_1,scrn_1,"6PM",true);
 	}
 
-	public int getRowCount() {
+	public static int getRowCount() {
 		return rows;
 	}
 	
-	public int getColumnCount() {
+	public static int getColumnCount() {
 		return columns;
 	}
 	
-	public int getHoldLimit(){
+	public static int getHoldLimit(){
 		return ticket_hold_time;
 	}
 	
