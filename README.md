@@ -18,7 +18,7 @@ A simple ticket service that facilitates the discovery, temporary hold, and fina
    
 ## Assumptions
 
-* The best seats are the ones farthest from the screen. So, the seats are filled from the top row first column and descends accordingly (More on this in the implementation section of Design_Document.pdf). 
+* The best seats are the ones farthest from the screen. So, the seats are filled from the top row first column and descends accordingly (More on this in the implementation section of Design_Implementation_Document.pdf). 
 * The wait time for the hold is assumed to be 30 seconds. After which the hold will expire.
 * The venue is considered to hold 5 rows and 5 columns for now. 
 * The maximum number of rows that can be in the venue is 25. This has been set considering the naming convention. 
