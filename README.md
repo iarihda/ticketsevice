@@ -24,3 +24,6 @@ A simple ticket service that facilitates the discovery, temporary hold, and fina
 * The maximum number of rows that can be in the venue is 25. This has been set considering the naming convention. 
 * The main method of the application and test cases are written based on these assumptions. 
 * The values of no. of rows and columns and wait time can be changed in TheatreSetup.java, but then the tests and main method should be modified to work.
+
+## Note:
+You will be facing multiple 30 second delays while running the tests and the program. This is due to the application waiting for the hold-wait-time milliseconds to check if the hold expires or not.
