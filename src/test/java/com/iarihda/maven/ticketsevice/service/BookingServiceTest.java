@@ -31,9 +31,9 @@ public class BookingServiceTest {
 	public void setup(){
 		TheatreSetup venue = new TheatreSetup();
 		bkSrvc = new BookingService(venue);
-		rows = venue.getRowCount();
-		columns = venue.getColumnCount();
-		holdTime = venue.getHoldLimit();
+		rows = TheatreSetup.getRowCount();
+		columns = TheatreSetup.getColumnCount();
+		holdTime = TheatreSetup.getHoldLimit();
 	}
 	
 	/*********************************************************************************************************************************

@@ -6,6 +6,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+/**
+ * Test TheatreSetup
+ * @author Adhirai Manickam
+ */
 public class TheatreSetupTest {
 
 	TheatreSetup venue;
@@ -13,46 +17,45 @@ public class TheatreSetupTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 	
+	/*********************************************************************************************************************************
+	 * TheatreSetup() *
+	 ***********************************/
+	
 	@Test
 	public void testTheatreSetup() {
 		assertNotNull(new TheatreSetup());
 	}
-
-	@Test
-	public void testGetRowCount_objectNotCreated_shouldThrowException() {
-		thrown.expect(NullPointerException.class);
-		venue.getRowCount();
-	}
+	
+	/*********************************************************************************************************************************
+	 * getRowCount() *
+	 ***********************************/
 	
 	@Test
-	public void testGetRowCount_objectCreated_shouldPass() {
-		venue = new TheatreSetup();
-		assertNotNull(venue.getRowCount());
-	}
-
-	@Test
-	public void testGetColumnCount_objectNotCreated_shouldThrowException() {
-		thrown.expect(NullPointerException.class);
-		venue.getColumnCount();
+	public void testGetRowCount_validScenario_shouldPass() {
+		assertNotNull(TheatreSetup.getRowCount());
 	}
 	
-	@Test
-	public void testGetColumnCount_objectCreated_shouldPass() {
-		venue = new TheatreSetup();
-		assertNotNull(venue.getColumnCount());
-	}
-
-	@Test
-	public void testGetHoldLimit_objectNotCreated_shouldThrowException() {
-		thrown.expect(NullPointerException.class);
-		venue.getHoldLimit();
-	}
+	/*********************************************************************************************************************************
+	 * getColumnCount() *
+	 ***********************************/
 	
 	@Test
-	public void testGetHoldLimit_objectCreated_shouldPass() {
-		venue = new TheatreSetup();
-		assertNotNull(venue.getHoldLimit());
+	public void testGetColumnCount_validScenario_shouldPass() {
+		assertNotNull(TheatreSetup.getColumnCount());
 	}
+
+	/*********************************************************************************************************************************
+	 * getHoldLimit() *
+	 ***********************************/
+	
+	@Test
+	public void testGetHoldLimit_validScenario_shouldPass() {
+		assertNotNull(TheatreSetup.getHoldLimit());
+	}
+	
+	/*********************************************************************************************************************************
+	 * getScreen() *
+	 ***********************************/
 
 	@Test
 	public void testGetScreen_objectNotCreated_shouldThrowException() {
@@ -66,6 +69,10 @@ public class TheatreSetupTest {
 		assertNotNull(venue.getScreen());
 	}
 
+	/*********************************************************************************************************************************
+	 * getMovie() *
+	 ***********************************/
+	
 	@Test
 	public void testGetMovie_objectNotCreated_shouldThrowException() {
 		thrown.expect(NullPointerException.class);
@@ -77,6 +84,10 @@ public class TheatreSetupTest {
 		venue = new TheatreSetup();
 		assertNotNull(venue.getMovie());
 	}
+	
+	/*********************************************************************************************************************************
+	 * getShow() *
+	 ***********************************/
 
 	@Test
 	public void testGetShow_objectNotCreated_shouldThrowException() {

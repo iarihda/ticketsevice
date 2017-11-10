@@ -1,5 +1,9 @@
 package com.iarihda.maven.ticketsevice.model;
 
+/**
+ * Test Screen
+ * @author Adhirai Manickam
+ */
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

@@ -30,8 +30,8 @@ public class BookingService implements TicketService {
 	 * @throws IllegalArgumentException 
 	 */
 	public BookingService(TheatreSetup venue) throws IllegalArgumentException {
-		rows = venue.getRowCount();
-		columns = venue.getColumnCount();
+		rows = TheatreSetup.getRowCount();
+		columns = TheatreSetup.getColumnCount();
 		seats = new Seats(venue.getShow(),venue.getScreen().getCapacity(),rows,columns);
 		seatArray = seats.getSeats();
 		rowAvailability = seats.getRowCount();

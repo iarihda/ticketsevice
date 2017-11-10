@@ -6,6 +6,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+/**
+ * Test Movie
+ * @author Adhirai Manickam
+ */
 public class MovieTest {
 
 	Movie mv;
@@ -56,7 +60,7 @@ public class MovieTest {
 	}
 	
 	@Test
-	public final void testGetITitle_objectCreated_shouldPass() {
+	public final void testGetTitle_objectCreated_shouldPass() {
 		mv = new Movie("Avengers", "English", true);
 		assertEquals("Avengers",mv.getTitle());
 	}
@@ -72,7 +76,7 @@ public class MovieTest {
 	}
 	
 	@Test
-	public final void testGetILanguage_objectCreated_shouldPass() {
+	public final void testGetLanguage_objectCreated_shouldPass() {
 		mv = new Movie("Avengers", "English", true);
 		assertEquals("English",mv.getLanguage());
 	}
