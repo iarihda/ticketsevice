@@ -10,6 +10,7 @@ import com.iarihda.maven.ticketsevice.model.SeatHold;
 import com.iarihda.maven.ticketsevice.model.Seats;
 
 /**
+ * Implementation of the TicketService Interface
  * Handles the ticket blocking and booking for a particular show
  * @author Adhirai Manickam
  */
@@ -189,7 +190,11 @@ public class BookingService implements TicketService {
 		Bookings newBooking = new Bookings(seatsToBeBooked, customerEmail, seats.getShow().getId());
 		return newBooking.getConfirmationCode();
 	}
-
+	
+	/**
+	 * Validation for email
+	 * @returns valid or not
+	 */
 	private boolean validate(String customerEmail) {
 		return customerEmail==null? false : customerEmail.trim().matches("^(.+)@(.+)$");
 	}
