@@ -30,11 +30,6 @@ public class ScreenTest {
 	}
 	
 	@Test
-	public final void testScreen_capacityRangeExceeded_shouldPass() {
-		assertEquals(625, new Screen("ScrnOne",1000, 50, true).getCapacity());
-	}
-	
-	@Test
 	public final void testScreen_validParams_shouldPass() {
 		assertNotNull(new Screen("ScrnOne",100, 50, true));
 	}

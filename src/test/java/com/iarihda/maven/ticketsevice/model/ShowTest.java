@@ -29,13 +29,13 @@ public class ShowTest {
 	@Test
 	public void testShow_invalidParams_shouldThrowException() {
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Invalid movie id");
-		new Show(0, 0, null, true);
+		thrown.expectMessage("Both movie and screen are required to create show.");
+		new Show(null, null, null, true);
 	}
 	
 	@Test
 	public final void testMovie_validParams_shouldPass() {
-		assertNotNull(new Show(mv.getId(), scrn.getId(), "6PM", true));
+		assertNotNull(new Show(mv, scrn, "6PM", true));
 	}
 	
 	/*********************************************************************************************************************************
@@ -50,7 +50,7 @@ public class ShowTest {
 	
 	@Test
 	public final void testGetId_objectCreated_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+		shw = new Show(mv, scrn, "6PM", true);
 		assertNotNull(shw.getId());
 	}
 	
@@ -59,15 +59,15 @@ public class ShowTest {
 	 ***********************************/
 	
 	@Test
-	public final void testGetMovieId_objectNotCreated_shouldThrowException() {
+	public final void testGetMovie_objectNotCreated_shouldThrowException() {
 		thrown.expect(NullPointerException.class);
-		shw.getMovieId();
+		shw.getMovie();
 	}
 	
 	@Test
-	public final void testGetMovieId_objectCreated_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
-		assertEquals(mv.getId(),shw.getMovieId());
+	public final void testGetMovie_objectCreated_shouldPass() {
+		shw = new Show(mv, scrn, "6PM", true);
+		assertEquals(mv,shw.getMovie());
 	}
 
 	/*********************************************************************************************************************************
@@ -75,15 +75,15 @@ public class ShowTest {
 	 ***********************************/
 	
 	@Test
-	public final void testGetScreenId_objectNotCreated_shouldThrowException() {
+	public final void testGetScreen_objectNotCreated_shouldThrowException() {
 		thrown.expect(NullPointerException.class);
-		shw.getScreenId();
+		shw.getScreen();
 	}
 	
 	@Test
-	public final void testGetScreenId_objectCreated_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
-		assertEquals(scrn.getId(),shw.getScreenId());
+	public final void testGetScreen_objectCreated_shouldPass() {
+		shw = new Show(mv, scrn, "6PM", true);
+		assertEquals(scrn,shw.getScreen());
 	}
 	
 	/*********************************************************************************************************************************
@@ -98,7 +98,7 @@ public class ShowTest {
 	
 	@Test
 	public final void testGetTime_objectCreated_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+		shw = new Show(mv, scrn, "6PM", true);
 		assertEquals("6PM",shw.getTime());
 	}
 	
@@ -113,7 +113,7 @@ public class ShowTest {
 	
 	@Test
 	public final void testIsActive_objectCreated_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+		shw = new Show(mv, scrn, "6PM", true);
 		assertTrue(shw.isActive());
 	}
 	
@@ -122,19 +122,21 @@ public class ShowTest {
 	 ***********************************/
 	
 	@Test
-	public final void testSetMovieId_invalidParams_shouldThrowException() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+	public final void testSetMovie_invalidParams_shouldThrowException() {
+		shw = new Show(mv, scrn, "6PM", true);
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Invalid movie id");
-		shw.setMovieId(0);
+		thrown.expectMessage("Movie is not active. Cannot create show.");
+		mv.changeStatus();
+		shw.setMovie(mv);
+		mv.changeStatus();
 	}
 	
 	@Test
-	public final void testSetMovieId_validParams_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+	public final void testSetMovie_validParams_shouldPass() {
+		shw = new Show(mv, scrn, "6PM", true);
 		mv = new Movie("Avengers II", "English", true); 
-		shw.setMovieId(mv.getId());
-		assertEquals(mv.getId(), shw.getMovieId());
+		shw.setMovie(mv);
+		assertEquals(mv, shw.getMovie());
 	}
 	
 	/*********************************************************************************************************************************
@@ -142,19 +144,21 @@ public class ShowTest {
 	 ***********************************/
 	
 	@Test
-	public final void testSetScreenId_invalidParams_shouldThrowException() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+	public final void testSetScreen_invalidParams_shouldThrowException() {
+		shw = new Show(mv, scrn, "6PM", true);
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Invalid screen id");
-		shw.setScreenId(0);
+		thrown.expectMessage("Screen is not active. Cannot create show.");
+		scrn.changeStatus();
+		shw.setScreen(scrn);
+		scrn.changeStatus();
 	}
 	
 	@Test
-	public final void testSetScreenId_validParams_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+	public final void testSetScreen_validParams_shouldPass() {
+		shw = new Show(mv, scrn, "6PM", true);
 		scrn = new Screen("S_One",100, 50, true);
-		shw.setScreenId(scrn.getId());
-		assertEquals(scrn.getId(), shw.getScreenId());
+		shw.setScreen(scrn);
+		assertEquals(scrn, shw.getScreen());
 	}
 	
 	/*********************************************************************************************************************************
@@ -163,7 +167,7 @@ public class ShowTest {
 	
 	@Test
 	public final void testSetTime_invalidParams_shouldThrowException() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+		shw = new Show(mv, scrn, "6PM", true);
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Show time cannot be null");
 		shw.setTime(null);
@@ -171,7 +175,7 @@ public class ShowTest {
 	
 	@Test
 	public final void testSetTime_validParams_shouldPass() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+		shw = new Show(mv, scrn, "6PM", true);
 		shw.setTime("7PM");
 		assertEquals("7PM", shw.getTime());
 	}
@@ -181,7 +185,7 @@ public class ShowTest {
 	 ***********************************/
 	@Test
 	public final void testChangeStatus() {
-		shw = new Show(mv.getId(), scrn.getId(), "6PM", true);
+		shw = new Show(mv, scrn, "6PM", true);
 		boolean before_change = shw.isActive();
 		shw.changeStatus();
 		boolean after_change = shw.isActive();

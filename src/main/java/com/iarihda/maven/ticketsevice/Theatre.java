@@ -76,13 +76,15 @@ class TicketThread extends Thread{
  * @author Adhirai Manickam
  */
 public class Theatre {
+	
+	private static Logger log = LogManager.getLogger(Theatre.class);
 
 	public static void main(String[] args) {
 		
-		TheatreSetup venue = new TheatreSetup(); //Setup the screen, movie and show
-		BookingService bookingService = new BookingService(venue); //Create a booking service for the show
-		
 		try {
+			
+			TheatreSetup venue = new TheatreSetup(); //Setup the screen, movie and show
+			BookingService bookingService = new BookingService(venue); //Create a booking service for the show
 			
 			/* Three customers try to book tickets simultaneously */
 			
@@ -122,6 +124,8 @@ public class Theatre {
 			TicketThread t6 = new TicketThread(bookingService, 0, 5, "c@gmail.com");
 			t6.start();
 			
+		} catch(IllegalArgumentException e) {
+			log.error(e.getMessage());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

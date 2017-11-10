@@ -6,7 +6,7 @@ package com.iarihda.maven.ticketsevice.model;
  */
 public class Seats {
 
-	private int showId;
+	private Show show;
 	private int availableSeats;
 	private boolean[][] seatArray;
 	private int[] rowCount;
@@ -17,9 +17,11 @@ public class Seats {
 	 * @param capacity - initial available seats is the capacity of the screen
 	 * @param rows - no. of rows
 	 * @param columns - no. of columns
+	 * @throws IllegalArgumentException 
 	 */
-	public Seats(int show, int capacity, int rows, int columns){
-		showId = show;
+	public Seats(Show s, int capacity, int rows, int columns) throws IllegalArgumentException{
+		validateShow(s);
+		show = s;
 		availableSeats = capacity;
 		seatArray = new boolean[rows][columns];
 		rowCount = new int[rows];
@@ -27,8 +29,15 @@ public class Seats {
 			rowCount[i] = columns;
 	}
 	
-	public int getShowId() {
-		return showId;
+	private void validateShow(Show s) throws IllegalArgumentException {
+		if(s==null || !s.isActive()){
+			throw new IllegalArgumentException("Show should be active");
+		}
+		
+	}
+
+	public Show getShow() {
+		return show;
 	}
 	
 	public int getAvailabileSeats() {
@@ -43,8 +52,8 @@ public class Seats {
 		return rowCount;
 	}
 	
-	void setId(int show) {
-		showId = show;
+	void setShow(Show s) {
+		show = s;
 	}
 
 	public void incrementSeats(int numSeats) {

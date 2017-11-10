@@ -26,16 +26,27 @@ public class BookingService implements TicketService {
 	/**
 	 * Constructor
 	 * @param venue - A TheatreSetup object with movie, screen and show information
+	 * @throws IllegalArgumentException 
 	 */
-	public BookingService(TheatreSetup venue) {
+	public BookingService(TheatreSetup venue) throws IllegalArgumentException {
 		rows = venue.getRowCount();
 		columns = venue.getColumnCount();
-		seats = new Seats(venue.getShow().getId(),venue.getScreen().getCapacity(),rows,columns);
+		seats = new Seats(venue.getShow(),venue.getScreen().getCapacity(),rows,columns);
 		seatArray = seats.getSeats();
 		rowAvailability = seats.getRowCount();
 		seatHoldMap = new HashMap<Integer, SeatHold>();
+		validateRowCount();
 	}
 	
+	/**
+	 * Confirms that the venue has less than or equal to 26 rows.
+	 * Throws IllegalArguementException if not.
+	 */
+	private void validateRowCount() {
+		if(rows>26)
+			throw new IllegalArgumentException("No. of rows in the venue is more than 26. Please change this.");
+	}
+
 	/**
 	* Discards the expired holds and returns the updated number of seats that are neither held nor reserved
 	* @return the number of tickets available in the venue
@@ -175,7 +186,7 @@ public class BookingService implements TicketService {
 		if(seatsToBeBooked == null || !seatsToBeBooked.isActive())
 			return null;
 		seatHoldMap.remove(seatHoldId);
-		Bookings newBooking = new Bookings(seatsToBeBooked, customerEmail, seats.getShowId());
+		Bookings newBooking = new Bookings(seatsToBeBooked, customerEmail, seats.getShow().getId());
 		return newBooking.getConfirmationCode();
 	}
 

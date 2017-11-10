@@ -27,7 +27,7 @@ public class Screen {
 		validateParams(screenName, noOfSeats, screenSize);
 		id = idGenerator.getAndIncrement();
 		name = screenName;
-		capacity = Math.min(625, noOfSeats);
+		capacity = noOfSeats;
 		size = screenSize;
 		isActive = status;
 	}

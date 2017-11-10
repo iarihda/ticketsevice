@@ -17,9 +17,9 @@ public class TheatreSetup {
 	public TheatreSetup() {
 		scrn_1 = new Screen("ScrnOne",rows*columns,50,true);
 		mv_1 = new Movie("Avenger", "English", true);
-		shw_1 = new Show(mv_1.getId(),scrn_1.getId(),"6PM",true);
+		shw_1 = new Show(mv_1,scrn_1,"6PM",true);
 	}
-	
+
 	public int getRowCount() {
 		return rows;
 	}
